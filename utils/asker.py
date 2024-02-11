@@ -49,7 +49,7 @@ class Asker:
         if name in self.current_dict():
             value = self.current_dict()[name]
             if isinstance(value, Dict):
-                dict_utils.merge(value, self.current_dict())
+                dict_utils.merge(value, new_dict)
 
         self.current_dict()[name] = new_dict
         self.dicts.append(new_dict)
