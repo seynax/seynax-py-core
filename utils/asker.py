@@ -30,9 +30,8 @@ class Asker:
 
         return self.current_dict
 
-    def ask(self, name: str = None, default_value: str = None, output_dict: {} = None, message: str = None):
+    def ask(self, name: str = None, message: str = None, default_value: str = None, output_dict: {} = None):
         _dict    = non_none(output_dict, self.current_dict)
-        print(self.current_dict)
 
         default_value = translate(default_value, _dict)
         if name in _dict:
