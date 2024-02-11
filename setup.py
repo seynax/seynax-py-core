@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='seynax-py-core',
+    name='seynax_py_core',
     version='1.0.0',
     packages=[''],
     url='https://github.com/seynax/seynax-py-core',
