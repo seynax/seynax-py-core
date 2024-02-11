@@ -1,4 +1,5 @@
 import json
+import os.path
 
 from utils.file.path_utils import correct_path
 
@@ -21,6 +22,8 @@ def write_json(data: {}, path):
 
 def read_json(path) -> {}:
     path = correct_path(path)
+    if not os.path.exists(path):
+        return None
 
     with open(path, 'r') as file:
         data = json.load(file)
