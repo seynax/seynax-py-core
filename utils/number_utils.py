@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import re
-from string_utils import blank
+from .string_utils import blank
 
 
 def is_number(value: str) -> bool:
