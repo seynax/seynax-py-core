@@ -2,14 +2,14 @@ from typing import List, Dict
 
 from pygments                       import highlight, lexers, formatters
 
-from .attributes                    import dict_utils
-from .attributes.attribute_utils    import non_none
-from .attributes.string_utils       import non_blank, blank
-from .file.json_utils               import jsonify
-from .name_utils                    import message_of, name_of
-from .terminal.color_utils          import colorize
-from .terminal.print_utils          import print_color
-from .translate_utils               import translate
+from utils.attributes                    import dict_utils
+from utils.attributes.attribute_utils    import non_none
+from utils.attributes.string_utils       import non_blank, blank
+from utils.file.json_utils               import jsonify
+from utils.name_utils                    import message_of, name_of
+from utils.terminal.color_utils          import colorize
+from utils.terminal.print_utils          import print_color
+from utils.translate_utils               import translate
 
 
 def value_is_yes(value: str):
@@ -22,7 +22,7 @@ class Asker:
         self.dicts          = []
 
     def get_dict_on_pile(self, index: int):
-        if index < 0 or index > len(self.dicts):
+        if index < 0 or index >= len(self.dicts):
             return self.configuration
 
         _dict = self.dicts[index]
@@ -32,7 +32,7 @@ class Asker:
         return _dict
 
     def current_dict(self):
-        return self.get_dict_on_pile(len(self.dicts) - 1)
+        return self.get_dict_on_pile(len(self.dicts))
 
     def pop_current_dict(self):
         if len(self.dicts) > 0:
@@ -46,7 +46,10 @@ class Asker:
         print_color('\033[92m', message)
 
         new_dict = {}
-        dict_utils.put_if_exists(name, self.current_dict(), new_dict)
+        if name in self.current_dict():
+            value = self.current_dict()[name]
+            if isinstance(value, Dict):
+                dict_utils.merge(value, self.current_dict())
         self.current_dict()[name] = new_dict
         self.dicts.append(new_dict)
 
@@ -71,7 +74,10 @@ class Asker:
     def ask(self, name: str = None, default_value: str = None, message: str = None, output_dict: {} = None):
         _dict    = non_none(output_dict, self.current_dict())
 
+<<<<<<< HEAD
+=======
         print(name + ' in ' + str(_dict) + ' ?')
+>>>>>>> b1440a6495726b9f2d605b563796843b599405d6
         if name in _dict:
             default_value = non_none(_dict[name], default_value)
         default_value = translate(default_value, self.configuration)
