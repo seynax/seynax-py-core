@@ -1,8 +1,20 @@
 from utils.asker import Asker
 
-asker = Asker()
-asker.start_section('new_section')
-asker.ask('enabled', 'yes')
-asker.stop_section()
+ask_dict = {
+    'a': {
+        'enabled': 'yes',
+        'sub': {
+            'a.sub': 'coucou',
+            'a.sub.sub': {
+                'a.sub.sub.sub': 'pas coucou'
+            }
+        }
+    },
+    'b': {
+        'enabled': 'no'
+    }
+}
 
-print(str(asker.configuration))
+asker = Asker()
+print(str(asker.ask_from_dict(ask_dict)))
+asker.ask_yes_no('initialize ?')

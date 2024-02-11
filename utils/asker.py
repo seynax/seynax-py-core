@@ -97,7 +97,7 @@ class Asker:
         return self.configuration
 
     def ask_yes_no(self, name: str = None, default_value: str = None, message: str = None, output_dict: {} = None) -> bool:
-        return value_is_yes(self.ask(name, default_value, self.make_message(name, message, default_value, non_none(output_dict, self.current_dict()), ' (y.yes, n.no) ')))
+        return value_is_yes(self.ask(name, default_value, self.make_message(name, default_value, message, non_none(output_dict, self.current_dict()), ' (y.yes, n.no) ')))
 
     def stop_section(self, no_print: bool = False) -> [(str, str, {}), (None, None, None)]:
         json_settings = jsonify(self.current_dict())
