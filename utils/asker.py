@@ -34,13 +34,16 @@ class Asker:
 
     def make_message(self, name: str = None, default_value: str = None, message: str = None, output_dict: {} = None, *appends: str) -> str:
         message = non_none(message, message_of(name) + ' ?')
+
         for append in appends:
             message += append
         message = translate(message, output_dict)
         message = colorize('\033[92m', message)
+
         if default_value is not None:
             message += ' (' + colorize('\033[96m', f'Default : {default_value}') + ') '
         message += ' : '
+
         return message
 
     def ask(self, name: str = None, default_value: str = None, message: str = None, output_dict: {} = None):
@@ -50,7 +53,7 @@ class Asker:
         if name in _dict:
             default_value = non_none(_dict[name], default_value)
 
-        message = self.make_message(name, message, default_value, _dict)
+        message = self.make_message(name, default_value, message, _dict)
 
         name    = non_blank(name, name_of(message), '_' + str(len(self.configuration)))
 
