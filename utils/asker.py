@@ -53,7 +53,7 @@ class Asker:
         return self.current_dict()
 
     def make_message(self, name: str = None, default_value: str = None, message: str = None, output_dict: {} = None, *appends: str) -> str:
-        message = non_none(message, message_of(name) + ' ?')
+        message = non_none(message, message_of(name))
 
         for append in appends:
             message += append
@@ -69,15 +69,15 @@ class Asker:
         return message
 
     def ask(self, name: str = None, default_value: str = None, message: str = None, output_dict: {} = None):
-        _dict    = non_none(output_dict, self.current_dict(), self.configuration)
+        _dict    = non_none(output_dict, self.current_dict())
 
-        default_value = translate(default_value, self.configuration)
-        default_value = translate(default_value, _dict)
+        print(name + ' in ' + str(_dict) + ' ?')
         if name in _dict:
             default_value = non_none(_dict[name], default_value)
+        default_value = translate(default_value, self.configuration)
+        default_value = translate(default_value, _dict)
 
-        message = self.make_message(name, default_value, message, _dict)
-
+        message = self.make_message(name, default_value, message, _dict, ' ? ')
         name    = non_blank(name, name_of(message), '_' + str(len(self.configuration)))
 
         value = non_blank(input(message), default_value)
