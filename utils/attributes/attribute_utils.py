@@ -16,8 +16,23 @@ def get_all(cls, desired_type: type):
     return attributes
 
 
-def not_none(value, default):
-    if value is None:
-        return default
+def non_none(*values):
+    if values is None:
+        return None
 
-    return value
+    for value in values:
+        if value is None:
+            continue
+        return value
+
+    return None
+
+
+def one_none(*values) -> bool:
+    if values is None:
+        return True
+
+    for value in values:
+        if value is None:
+            return True
+    return False

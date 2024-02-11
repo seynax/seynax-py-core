@@ -1,7 +1,13 @@
+import glob
 import hashlib
 import os
+import shutil
 import time
 import platform
+from typing import List
+
+from utils.file.path_utils import correct_path, join_path
+from utils.attributes.string_utils import blank
 
 
 def file_md5(file_path: str) -> str:
@@ -37,7 +43,7 @@ def modification_date(file_path: str):
 
 
 def bytes_length(file_path: str) -> int:
-    return file_info(file_path).st_size
+    return file_info(file_path)['stats'].st_size
 
 
 def file_info(file_path: str, last_info = None):
@@ -68,3 +74,53 @@ def file_info(file_path: str, last_info = None):
         info['has_changed'] = False
 
     return info
+
+
+def find_first_file(patterns: [str, [str]], default: str = None, directory: str = None):
+    if isinstance(patterns, List):
+        for pattern in patterns:
+            find = find_first_file(pattern, default)
+            if not blank(find) and find != default:
+                return find
+        return default
+
+    finds = glob.glob(join_path(directory, patterns))
+
+    find = None
+    if len(finds) > 0:
+        find = finds[0]
+
+    if blank(find):
+        find = default
+
+    return find
+
+
+def make_folder_if_not_exists(path: str):
+    if not os.path.exists(path):
+        try:
+            os.mkdir(path)
+        except OSError as error:
+            print(error)
+
+
+def copy_all(from_path, to_path):
+    from_path = correct_path(from_path)
+    to_path = correct_path(to_path)
+
+    if not os.path.exists(from_path):
+        return
+
+    from_is_file = os.path.isfile(from_path)
+
+    if not from_is_file:
+        if os.path.exists(to_path) and os.path.isfile(to_path):
+            return
+        make_folder_if_not_exists(to_path)
+
+        files = os.listdir(from_path)
+        for file in files:
+            copy_all(join_path(from_path, file), join_path(to_path, file))
+        return
+
+    shutil.copy2(from_path, to_path)
