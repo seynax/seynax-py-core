@@ -74,10 +74,6 @@ class Asker:
     def ask(self, name: str = None, default_value: str = None, message: str = None, output_dict: {} = None):
         _dict    = non_none(output_dict, self.current_dict())
 
-<<<<<<< HEAD
-=======
-        print(name + ' in ' + str(_dict) + ' ?')
->>>>>>> b1440a6495726b9f2d605b563796843b599405d6
         if name in _dict:
             default_value = non_none(_dict[name], default_value)
         default_value = translate(default_value, self.configuration)
