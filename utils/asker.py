@@ -19,7 +19,7 @@ def value_is_yes(value: str):
 class Asker:
     def __init__(self):
         self.configuration  = {}
-        self.current_dict   = None
+        self.current_dict   = self.current_dict
 
     def start_section(self, name: str = None, message: str = None) -> {}:
         message = non_none(message, message_of(name))
@@ -37,6 +37,7 @@ class Asker:
 
         for append in appends:
             message += append
+        message = translate(message, self.configuration)
         message = translate(message, output_dict)
         message = colorize('\033[92m', message)
 
