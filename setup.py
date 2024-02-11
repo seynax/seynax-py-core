@@ -15,7 +15,7 @@ setup(
     version='1.0.0',
     author='Seynax',
     description='Code used by Seynax into multiples python projects',
-    long_description=read('README'),
+#    long_description=read('README'),
     license='GNU General Public License v3.0',
     keywords='seynax_py_core seynax-py-core seynax core',
     url='https://github.com/seynax/seynax-py-core',
