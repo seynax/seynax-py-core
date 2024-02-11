@@ -1,5 +1,7 @@
 import json
 
+from utils.file.path_utils import correct_path
+
 
 def jsonify(data: {}):
     return json.dumps(data, indent=4)
@@ -20,7 +22,7 @@ def write_json(data: {}, path):
 def read_json(path) -> {}:
     path = correct_path(path)
 
-    data = {}
     with open(path, 'r') as file:
         data = json.load(file)
+
     return data
