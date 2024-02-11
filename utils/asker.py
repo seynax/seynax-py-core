@@ -60,8 +60,8 @@ class Asker:
 
         return value
 
-    def ask_yes_no(self, name: str = None, default_value: str = None, message: str = None, output_dict: {} = None):
-        return self.ask(name, default_value, self.make_message(name, message, default_value, non_none(output_dict, self.current_dict), ' (y.yes, n.no) '))
+    def ask_yes_no(self, name: str = None, default_value: str = None, message: str = None, output_dict: {} = None) -> bool:
+        return value_is_yes(self.ask(name, default_value, self.make_message(name, message, default_value, non_none(output_dict, self.current_dict), ' (y.yes, n.no) ')))
 
     def stop_section(self, no_print: bool = False) -> [(str, str, {}), (None, None, None)]:
         if self.current_dict is None:
