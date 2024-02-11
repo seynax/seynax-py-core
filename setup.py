@@ -23,6 +23,5 @@ setup(
         "Development Status :: 1 - Alpha",
         "Topic :: Utilities",
         "License :: GNU General Public License v3.0",
-    ],
-    packages=['seynax']
+    ]
 )
