@@ -32,7 +32,7 @@ class Asker:
         return _dict
 
     def current_dict(self):
-        return self.get_dict_on_pile(len(self.dicts))
+        return self.get_dict_on_pile(len(self.dicts) - 1)
 
     def pop_current_dict(self):
         if len(self.dicts) > 0:
@@ -50,6 +50,7 @@ class Asker:
             value = self.current_dict()[name]
             if isinstance(value, Dict):
                 dict_utils.merge(value, self.current_dict())
+
         self.current_dict()[name] = new_dict
         self.dicts.append(new_dict)
 
