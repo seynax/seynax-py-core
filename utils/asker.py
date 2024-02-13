@@ -122,10 +122,11 @@ class Asker:
                 split = splits[i]
                 if split in dict_iterator:
                     value = dict_iterator[split]
-                    if isinstance(value, Dict) and i < len(splits) - 1:
+                    if isinstance(value, Dict) and i < len(splits):
                         dict_iterator = value
                         continue
                     elif isinstance(value, str):
                         return value_is_yes(split)
                     return None
+
         return self.current_dict().get(name)
