@@ -3,13 +3,14 @@
 	git add .
 	git commit
 	git push origin
-	for /F "delims=" %%A in ('git log -1 --format^="%%H" -- %f%') do set "g=%%A"
-	echo %g%|clip
-	powershell Get-Clipboard
 
 	:: Run this script with elevation
 	call :RequestAdminElevation "%~dpfs0" %* || goto:eof
 		pip uninstall seynax-py-core
+
+	for /F "delims=" %%A in ('git log -1 --format^="%%H" -- %f%') do set "g=%%A"
+	echo %g%|clip
+	powershell Get-Clipboard
 
 pause &goto:eof
 
