@@ -3,9 +3,12 @@ from typing import Dict
 from utils.attributes.attribute_utils import one_none
 
 
-def merge(source: {}, destination: {}):
-    if source is None or destination is None:
-        return None
+def merge(source: {} = None, destination: {} = None):
+    if source is None:
+        return destination
+
+    if destination is None:
+        return source
 
     for sub_source_name, sub_source_value in source.items():
         if sub_source_name not in destination or not isinstance(sub_source_value, Dict):
