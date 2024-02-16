@@ -13,7 +13,7 @@ def can_cast(source, destination_type):
         return False
 
 
-def cast(source, destination_type)
+def cast(source, destination_type):
     try:
         return destination_type(source)
     except ValueError:
