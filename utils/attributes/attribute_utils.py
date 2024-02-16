@@ -3,6 +3,15 @@ from __future__ import annotations
 import inspect
 from typing import List, Dict, Union, Tuple
 
+   
+# Function to check if casting is possible or not
+def can_cast(source_type, dest_type):
+    try:
+        dest_type(source_type())
+        return True
+    except ValueError:
+        return False
+
 
 def get_all(cls, desired_type: type):
     """
